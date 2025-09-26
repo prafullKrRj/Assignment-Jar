@@ -27,7 +27,7 @@ class ItemDetailViewModel : ViewModel() {
     fun fetchItemDetails(id: String) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchItemDetails(itemId).collectLatest { response ->
+            repository.fetchItemDetails(id).collectLatest { response ->
                 _item.update { response }
             }
         }

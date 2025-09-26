@@ -1,5 +1,6 @@
 package com.myjar.jarassignment.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ fun AppNavigation(
         }
         composable("item_detail/{itemId}") { backStackEntry ->
             val itemId = backStackEntry.arguments?.getString("itemId")
+            Log.d("Main Screen", "itemId: $itemId")
             ItemDetailScreen( itemId = itemId, ItemDetailViewModel(), navController)
         }
     }

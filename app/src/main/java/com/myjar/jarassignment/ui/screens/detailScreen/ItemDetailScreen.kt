@@ -34,64 +34,69 @@ fun ItemDetailScreen(
     viewModel: ItemDetailViewModel,
     navController: NavController
 ) {
-
-    if (itemId == null) {
-        Text("ItemId Not Found")
-    } else {
-        LaunchedEffect(Unit) {
-            viewModel.itemId = itemId
-            viewModel.fetchItemDetails(itemId)
-        }
-        val state by viewModel.state.collectAsState()
-        Scaffold(Modifier.fillMaxSize(), topBar = {
-            TopAppBar(title = {
-                Text(
-                    text = "Item Details for ID: $itemId",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                )
-            }, navigationIcon = {
-                IconButton(onClick = navController::popBackStack) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                }
-            })
-        }) { paddingValues ->
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                when (val item = state) {
-                    is Response.Error -> {
-                        ListErrorScreen(
-                            errorTitle = (item as Response.Error).message,
-                            onRetryClick = {
-                                viewModel.retry()
-                            })
-                    }
-
-                    Response.Loading -> {
-                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                            CircularProgressIndicator()
-                        }
-                    }
-
-                    is Response.Success<ComputerItem> -> {
-                        val data = item.data
-                        Text(data.name)
-                        data.data?.let { itemData ->
-                            itemData.description?.let {
-                                Text("Description: ${it}")
-                            }
-                            itemData.price?.let {
-                                Text("Price: $it")
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    Text(
+        text = "Item Details for ID: $itemId",
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    )
+//    if (itemId == null) {
+//        Text("ItemId Not Found")
+//    } else {
+//        LaunchedEffect(Unit) {
+//            viewModel.itemId = itemId
+//            viewModel.fetchItemDetails(itemId)
+//        }
+//        val state by viewModel.state.collectAsState()
+//        Scaffold(Modifier.fillMaxSize(), topBar = {
+//            TopAppBar(title = {
+//                Text(
+//                    text = "Item Details for ID: $itemId",
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .padding(16.dp)
+//                )
+//            }, navigationIcon = {
+//                IconButton(onClick = navController::popBackStack) {
+//                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+//                }
+//            })
+//        }) { paddingValues ->
+//            Column(
+//                Modifier
+//                    .fillMaxSize()
+//                    .padding(paddingValues)
+//                    .verticalScroll(rememberScrollState())
+//            ) {
+//                when (val item = state) {
+//                    is Response.Error -> {
+//                        ListErrorScreen(
+//                            errorTitle = (item as Response.Error).message,
+//                            onRetryClick = {
+//                                viewModel.retry()
+//                            })
+//                    }
+//
+//                    Response.Loading -> {
+//                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//                            CircularProgressIndicator()
+//                        }
+//                    }
+//
+//                    is Response.Success<ComputerItem> -> {
+//                        val data = item.data
+//                        Text(data.name)
+//                        data.data?.let { itemData ->
+//                            itemData.description?.let {
+//                                Text("Description: ${it}")
+//                            }
+//                            itemData.price?.let {
+//                                Text("Price: $it")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
