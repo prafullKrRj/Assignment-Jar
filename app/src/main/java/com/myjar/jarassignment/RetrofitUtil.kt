@@ -10,7 +10,6 @@ fun createRetrofit(): ApiService {
         .baseUrl("https://api.restful-api.dev")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
     val service: ApiService = retrofit.create(ApiService::class.java)
     return service
 }
