@@ -38,7 +38,9 @@ fun ItemListScreen(
     }
     when (items) {
         is Response.Error -> {
-            ListErrorScreen(errorTitle = (items as Response.Error).message)
+            ListErrorScreen(errorTitle = (items as Response.Error).message, onRetryClick = {
+                viewModel.retry()
+            })
         }
 
         Response.Loading -> {

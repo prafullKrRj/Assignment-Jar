@@ -10,6 +10,7 @@ import java.io.IOException
 
 interface JarRepository {
     suspend fun fetchResults(): Flow<Response<List<ComputerItem>>>
+    suspend fun fetchItemDetails(id: String): Flow<Response<ComputerItem>>
 }
 
 class JarRepositoryImpl(
@@ -27,4 +28,19 @@ class JarRepositoryImpl(
             emit(Response.Error(e.message ?: "Error"))
         }
     }
+
+    override suspend fun fetchItemDetails(id: String): Flow<Response<ComputerItem>> = flow {
+        try {
+            val response = apiService.fetchObject(id)
+            emit(Response.Success(response))
+        } catch (e: HttpException) {
+            emit(Response.Error("HTTP ERROR"))
+        } catch (e: IOException) {
+            emit(Response.Error("IO EXCEPTION"))
+        } catch (e: Exception) {
+            emit(Response.Error(e.message ?: "Error"))
+        }
+    }
+
+
 }

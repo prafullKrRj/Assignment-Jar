@@ -26,7 +26,7 @@ class JarViewModel : ViewModel() {
     val searchQuery = _searchQuery.asStateFlow()
     private val _computerItemData = MutableStateFlow<Response<List<ComputerItem>>>(Response.Loading)
     val computerItemData = _computerItemData.asStateFlow()
-
+    private val repository: JarRepository = JarRepositoryImpl(createRetrofit())
     val data = combine(
         _searchQuery,
         _computerItemData
@@ -50,7 +50,7 @@ class JarViewModel : ViewModel() {
         }
     }.stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000), Response.Loading)
 
-    private val repository: JarRepository = JarRepositoryImpl(createRetrofit())
+
 
 
     fun fetchData() {

@@ -1,4 +1,4 @@
-package com.myjar.jarassignment.ui.composables
+package com.myjar.jarassignment.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.myjar.jarassignment.ui.screens.detailScreen.ItemDetailScreen
+import com.myjar.jarassignment.ui.screens.detailScreen.ItemDetailViewModel
 import com.myjar.jarassignment.ui.screens.listscreen.ItemListScreen
 import com.myjar.jarassignment.ui.screens.listscreen.JarViewModel
 
@@ -29,7 +30,7 @@ fun AppNavigation(
         }
         composable("item_detail/{itemId}") { backStackEntry ->
             val itemId = backStackEntry.arguments?.getString("itemId")
-            ItemDetailScreen(itemId = itemId)
+            ItemDetailScreen( itemId = itemId, ItemDetailViewModel(), navController)
         }
     }
 }
